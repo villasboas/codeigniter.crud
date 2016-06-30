@@ -13,6 +13,6 @@
 	<?php endif;?>
 	</div>
 	<div class="col-md-12">
-		<a href="<?php echo base_url(); ?>" class="btn btn-danger">Voltar</a>
+		<a href="<?php echo site_url(); ?>" class="btn btn-danger">Voltar</a>
 	</div>
 </div>

@@ -85,61 +85,6 @@ class App extends CI_Controller {
 		$this->load->view('index',$this->setpage);
 	}	
 
-	/**
-	  * Página para cadastrar um novo cliente
-	  *
-	  * Cerrega o formulário de cadastro de clientes e guardar novas entradas no banco de dados
-	  *
-	  * @author  Gustavo Vilas Boas
-	  * @since 29/06/2016
-	  * @param void
-	  * @return void
-  	*/
-	public function create() {
-
-		//seta as variaveis de página
-		$this->setpage['title'] = "Adicionar cliente";
-		$this->setpage['view'] = "create";
-
-		//define as regras de validção do formulario de clientes
-		$this->form_validation->set_rules("desc_nome","Nome","alpha_dashed|trim|required");
-		$this->form_validation->set_rules("desc_email","E-mail","required|trim|required|valid_email|is_unique[clientes.desc_email]");
-		$this->form_validation->set_rules("desc_telefone","desc_telefone", "numeric|trim|max_length[14]");
-		
-		//verifica se o formulario submetido é válido
-		if($this->form_validation->run() !== FALSE)
-		{
-			//tenta fazer o upload do avatar
-			$check = $this->upload();
-
-			//verifica se o upload foi realizado
-			if($check)
-			{	
-				//seta um array com todas as informações para o cadastro do novo cliente
-				$dados['desc_nome'] = $this->input->post('desc_nome');
-				$dados['desc_email'] = $this->input->post('desc_email');
-				$dados['desc_telefone'] = $this->input->post('desc_telefone');
-				$dados['desc_foto'] = $check;
-
-				//tenta cadastrar o novo cliente e se conseguir define uma mensagem de sucesso
-				if($this->app_model->update_client($dados))
-					$this->setpage['success'] = "Cliente adicionado com sucesso"; 
-			}
-			else
-			{	
-				//caso não consiga fazer o upload seta a mensagem de erro
-				$this->setpage['error'] = $this->upload->display_errors(); 
-			}	
-		}
-		else
-		{
-			//caso o formulário seja invalido, seta a mensagem de erro
-			$this->setpage['error'] =  validation_errors();
-		}
-		
-		//carrega a view para adicionar um novo cliente
-		$this->load->view('index',$this->setpage);
-	}	
 
 	/**
 	  * Página para editar um cliente
@@ -151,24 +96,30 @@ class App extends CI_Controller {
 	  * @param (int) id (id do cliente a ser editado, passado pela url)
 	  * @return void
   	*/
-	public function update($id) {
+	public function update($id = false) {
+
+		//verifica se um id foi informado
+		$id = ($id) ? $id : false;
+		$email = false;
 
 		//seta as variaveis de página
 		$this->setpage['title'] = "Editar cliente";
 		$this->setpage['view'] = "update";
 
 		//seleciona o cliente informado e guarda o email submetido no formulario de edição
-		$query = $this->app_model->select_client($id);
-		$email = $this->input->post('desc_email');
+		if($id){
+			$query = $this->app_model->select_client($id);
+			$email = $this->input->post('desc_email');
+		}
 
 		//verifica o email e se for diferente do que está no banco de dados, verifica se o novo email é unico
-		if($email && $email != $query[0]->desc_email)	
+		if($email && $email != $query[0]->desc_email || !$id)	
 			$this->form_validation->set_rules("desc_email","E-mail","trim|required|valid_email|is_unique[clientes.desc_email]");
 
 		//seta as regras de validação de fomrulario
 		$this->form_validation->set_rules("desc_nome","Nome","alpha_dashed|trim");	
 		$this->form_validation->set_rules("desc_telefone","Telefone", "numeric|trim|max_length[14]");
-		$this->form_validation->set_rules("flg_ativo","Ativo", "");
+		$this->form_validation->set_rules("flg_ativo","Ativo", "trim|max_length[1]|alpha");
 
 
 		//testa para ver se o formulario é valido
@@ -202,7 +153,7 @@ class App extends CI_Controller {
 		}			
 
 		//seta a view com os dados da pagina
-		$this->setpage['result'] = $query; 
+		$this->setpage['result'] = (isset($query[0])) ? $query[0] : null; 
 		$this->load->view("index", $this->setpage);
 
 	}

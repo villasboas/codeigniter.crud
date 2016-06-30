@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?> 
 
 <div class="col-md-12" style="text-align: right; padding: 20px 0px;">
-	<a href="<?php echo base_url(); ?>index.php/app/create" class="btn btn-success">Adicionar cliente</a>
+	<a href="<?php echo site_url("app/update");?>" class="btn btn-success">Adicionar cliente</a>
 </div>
 
 
@@ -27,13 +27,13 @@
 			<td><?php echo $value->desc_telefone; ?></td>
 			<td><?php echo $value->flg_ativo; ?></td>
 			<td>
-				<a href="<?php echo base_url().'index.php/app/read/'.$value->cliente_id?>" alt="visualizar">
+				<a href="<?php echo site_url('app/read/'.$value->cliente_id)?>" alt="visualizar">
 					<span class="glyphicon glyphicon-eye-open text-warning"></span>
 				</a>
-				<a href="<?php echo base_url().'index.php/app/update/'.$value->cliente_id?>" alt="visualizar">
+				<a href="<?php echo site_url('app/update/'.$value->cliente_id) ?>" alt="visualizar">
 					<span class="glyphicon glyphicon-edit"></span>
 				</a>
-				<a href="<?php echo base_url().'index.php/app/delete/'.$value->cliente_id?>" alt="visualizar">
+				<a href="<?php echo site_url('app/delete/'.$value->cliente_id) ?>" alt="visualizar">
 					<span class="glyphicon glyphicon-remove text-danger"></span>
 				</a>
 			</td>

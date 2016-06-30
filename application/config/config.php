@@ -34,7 +34,7 @@ $config['base_url'] = 'http://localhost/CodeIgniter/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ $config['uri_protocol']	= 'AUTO';
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = 'index.php';
+$config['url_suffix'] = '';
 
 /*
 |--------------------------------------------------------------------------

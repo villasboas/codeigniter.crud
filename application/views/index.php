@@ -20,6 +20,7 @@
 			width: 100%;
 			background: #fff;
 			padding: 0px;
+			z-index: 999;
 		}
 		main
 		{
@@ -33,7 +34,7 @@
 		<header id="page-header" class="container-fluid">
 			<div class="page-header" style="margin: 0px; padding: 10px 100px;">
 				<h1 >CRUD <small>Com CodeIgniter</small></h1>
-				<a href="<?php echo base_url(); ?>" class="btn btn-default">
+				<a href="<?php echo site_url(); ?>" class="btn btn-default">
 					<span class="glyphicon glyphicon-home"></span>
 					Inicio
 				</a>

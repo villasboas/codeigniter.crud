@@ -17,14 +17,17 @@
 	<?php endif;?>
 	</div>
 
-	<?php foreach($result as $dados):?>
+
+	<?php if(isset($result->desc_foto)):?>
 	<div class="col-md-12">	
 		<div class="thumbnail col-md-3">
-			<img src="<?php echo base_url() . "uploads/". $dados->desc_foto . ".jpg"; ?>" width="100%">
+			<img 	src="<?php echo base_url() . "uploads/". $result->desc_foto . ".jpg"; ?>" 
+					width="100%">
 		</div>
 	</div>
-
-	<div class="col-md-12">
+	<?PHP endif; ?>
+	
+		<div class="col-md-12">
 		<label for="desc_foto">Foto do cliente</label>
 		<input type="file" id="desc_foto" name="desc_foto">
 		<br>
@@ -32,25 +35,41 @@
 
 	<div class="col-md-12">
 		<label for="desc_nome">Nome do cliente</label>
-		<input type="text" id="desc_nome" name="desc_nome" class="form-control" value="<?php echo $dados->desc_nome; ?>">
+		<input type="text" 
+				id="desc_nome" 
+				name="desc_nome" 
+				class="form-control" 
+				value="<?php if (isset($result->desc_nome)) echo $result->desc_nome; ?>" required maxlength="30">
 	</div>
 
 	<div class="col-md-12">
 		<label for="desc_email">E-mail do cliente</label>
-		<input type="email" id="desc_email" name="desc_email" class="form-control" value="<?php echo $dados->desc_email; ?>">
+		<input 	type="email" 
+				id="desc_email" 
+				name="desc_email" 
+				class="form-control" 
+				value="<?php if (isset($result->desc_email)) echo $result->desc_email; ?>" required>
 	</div>
 	
 	<div class="col-md-12">
 		<label for="desc_telefone">Telefone do cliente</label>
-		<input type="text" id="desc_telefone" name="desc_telefone" class="form-control" value="<?php echo $dados->desc_telefone; ?>">
+		<input 	type="text" 
+				id="desc_telefone" 
+				name="desc_telefone" 
+				class="form-control" 
+				value="<?php if (isset($result->desc_telefone)) echo $result->desc_telefone; ?>" maxlength="14">
 	</div>
 	
 	<div class="col-md-12">
 		<label for="flg_ativo">Está ativo?</label>
-		<input type="text" id="flg_ativo" name="flg_ativo" class="form-control" value="<?php echo $dados->flg_ativo; ?>">
+		<input 	type="text" 
+				id="flg_ativo" 
+				name="flg_ativo" 
+				class="form-control" 
+				value="<?php if (isset($result->flg_ativo)) echo $result->flg_ativo; ?>" maxlength="1">
 	</div>
 	
-	<?php endforeach; ?>
+	
 
 	<div class="col-md-12">
 		<br>
